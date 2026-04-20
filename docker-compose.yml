@@ -1,36 +1,28 @@
 version: '3.8'
 
 services:
-  # Servicio de Base de Datos (PostgreSQL)
   db:
     image: postgres:15
-    volumes:
-      # Persistencia: Esto asegura que los datos sobrevivan si apagas el contenedor
-      - postgres_data:/var/lib/postgresql/data
+    restart: always
     environment:
-      - POSTGRES_DB=tienda_db
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=secret_password
+      POSTGRES_DB: tienda_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: HOLA123
+    ports:
+      - "5432:5432"
 
-  # Servicio de tu API Django
   web:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
-    volumes:
-      # Hot-Reload: Mapeamos la carpeta actual para que los cambios de código se reflejen sin reiniciar
-      - .:/app
+    restart: always
     ports:
       - "8000:8000"
     depends_on:
       - db
     environment:
-      # Estas variables deben coincidir con lo que espera tu settings.py
-      - DB_NAME=tienda_db
-      - DB_USER=postgres
-      - DB_PASSWORD=secret_password
-      - DB_HOST=db  # ¡OJO! Aquí usamos el nombre del servicio 'db' como host
-      - DB_PORT=5432
-
-# Definición del volumen persistente
-volumes:
-  postgres_data:
+      - SQL_ENGINE=django.db.backends.postgresql
+      - SQL_DATABASE=tienda_db
+      - SQL_USER=postgres
+      - SQL_PASSWORD=HOLA123
+      - SQL_HOST=db
+      - SQL_PORT=5432
+      - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 0.0.0.0
