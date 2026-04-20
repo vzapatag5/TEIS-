@@ -8,6 +8,6 @@ class BancoNacionalProcesador(ProcesadorPago):
     """
     def pagar(self, monto: float) -> bool:
         # Simulamos una operación de red o persistencia externa
-        with open("pagos_locales.log", "a") as f:
+        with open("pagos_locales_VALENTINA_ZAPATA.log", "a") as f:
             f.write(f"[{datetime.datetime.now()}] BANCO NACIONAL - Cobro procesado: ${monto}\n")
         return True
