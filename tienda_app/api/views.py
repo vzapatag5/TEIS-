@@ -10,6 +10,14 @@ from tienda_app.models import Libro  # <-- importar el modelo
 from .serializers import OrdenInputSerializer
 
 
+class ProductosAPIView(APIView):
+    """
+    Endpoint simple para listar productos (Requisito del tutorial).
+    GET /api/v1/productos/
+    """
+    def get(self, request):
+        return Response([{"id": 1, "titulo": "Arquitectura Limpia", "precio": 250.0}], status=status.HTTP_200_OK)
+
 class CompraAPIView(APIView):
     """
     Endpoint para procesar compras via JSON.
