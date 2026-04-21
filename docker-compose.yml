@@ -28,6 +28,12 @@ services:
     volumes:
       - static_volume:/app/staticfiles
 
+  pagos_flask:
+    build: ./microservicio_pagos
+    restart: always
+    ports:
+      - "5000:5000"
+
   nginx:
     image: nginx:1.25-alpine
     restart: always
@@ -38,6 +44,7 @@ services:
       - static_volume:/app/staticfiles
     depends_on:
       - web
+      - pagos_flask
 
 volumes:
   static_volume:
