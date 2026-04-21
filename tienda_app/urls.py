@@ -1,5 +1,5 @@
 from django.urls import path
-from .api.views import CompraAPIView
+from .api.views import CompraAPIView, ProductosAPIView
 from .views import CompraView, compra_rapida_fbv, CompraRapidaView
 
 urlpatterns = [
